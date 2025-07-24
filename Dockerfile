@@ -5,8 +5,6 @@ ARG PROJECT_ROOT='/app'
 ENV PROJECT_ROOT=${PROJECT_ROOT}
 WORKDIR ${PROJECT_ROOT}
 
-RUN chown -R www-data:www-data /app
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
      build-essential \
@@ -88,6 +86,7 @@ RUN if [ ${WITH_XDEBUG} = true ] ; then \
         echo "xdebug.log = /tmp/xdebug.log" >> ${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini; \
     fi ;
 
+RUN chown -R www-data:www-data ${PROJECT_ROOT}
 COPY . ${PROJECT_ROOT}
 
 COPY docker/app/entrypoint.sh /entrypoint.sh
