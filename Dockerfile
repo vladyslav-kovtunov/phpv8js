@@ -35,8 +35,6 @@ RUN apt-get update && \
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
-RUN git config --global --add safe.directory /app
-
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install mysqli pdo pdo_mysql sockets mbstring zip opcache gd
 
@@ -93,6 +91,8 @@ COPY . ${PROJECT_ROOT}
 COPY docker/app/entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh && \
     chmod -R 777 bootstrap storage 2>/dev/null || true
+
+RUN git config --global --add safe.directory /app
 
 RUN docker-php-source delete && \
     apt-get purge -y autoconf automake libtool && \
