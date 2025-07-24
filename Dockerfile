@@ -5,6 +5,8 @@ ARG PROJECT_ROOT='/app'
 ENV PROJECT_ROOT=${PROJECT_ROOT}
 WORKDIR ${PROJECT_ROOT}
 
+RUN chown -R www-data:www-data /app
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
      build-essential \
@@ -91,8 +93,6 @@ COPY . ${PROJECT_ROOT}
 COPY docker/app/entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh && \
     chmod -R 777 bootstrap storage 2>/dev/null || true
-
-RUN git config --global --add safe.directory /app
 
 RUN docker-php-source delete && \
     apt-get purge -y autoconf automake libtool && \
