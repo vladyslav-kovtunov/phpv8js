@@ -86,7 +86,7 @@ RUN if [ ${WITH_XDEBUG} = true ] ; then \
         echo "xdebug.log = /tmp/xdebug.log" >> ${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini; \
     fi ;
 
-RUN chown -R www-data:www-data ${PROJECT_ROOT}
+RUN chown -R root:root ${PROJECT_ROOT}
 COPY . ${PROJECT_ROOT}
 
 COPY docker/app/entrypoint.sh /entrypoint.sh
