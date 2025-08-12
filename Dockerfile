@@ -88,6 +88,9 @@ RUN if [ ${WITH_XDEBUG} = true ] ; then \
 
 COPY . ${PROJECT_ROOT}
 
+RUN git config --global --add safe.directory /__w/bot-builder/bot-builder
+RUN git config --global --add safe.directory ${PROJECT_ROOT}
+
 COPY docker/app/entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh && \
     chmod -R 777 bootstrap storage 2>/dev/null || true
